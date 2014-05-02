@@ -1,11 +1,16 @@
 # app.rb
 require 'sinatra'
+require 'sinatra/assetpack'
 require 'zhconv'
 require 'bundler'
 ENV['RACK_ENV'] = 'development' unless ENV['RACK_ENV']
 Bundler.require(:default, ENV['RACK_ENV'])
 
 class App < Sinatra::Base
+
+  helpers Sinatra::JSON
+
+  register Sinatra::AssetPack
 
   set :views, settings.root + '/app/views'
   set :erb, :format => :html5
@@ -45,17 +50,12 @@ class App < Sinatra::Base
     erb :index, :layout => :application
   end
 
-  get '/result' do
+  post '/result' do
     source = params[:source]
     @ori = "#{source}"
-    # p "Before convert"
-    # p "Source: #{source}, id: #{source.object_id}"
-    # p "@ori: #{@ori}, id: #{@ori.object_id}"
-    @result = convert(source)
-    # p "After convert"
-    # p "Source: #{source}, id: #{source.object_id}"
-    # p "@ori: #{@ori}, id: #{@ori.object_id}"
-    erb :result
+    @result = {:source => @ori, :result => convert(source) }
+    content_type :json, :charset => 'utf-8'
+    @result.to_json
   end
 
   def convert(source)
