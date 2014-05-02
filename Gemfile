@@ -5,6 +5,7 @@ ruby "2.1.0"
 gem 'rake'
 gem 'sinatra'
 gem 'sinatra-contrib', :require => "sinatra/contrib/all"
+gem 'sinatra-assetpack'
 gem 'pg'
 gem 'unicorn'
 gem 'foreman'

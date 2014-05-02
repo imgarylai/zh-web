@@ -24,6 +24,23 @@ class App < Sinatra::Base
     enable :show_exceptions
   end
 
+  assets do
+
+    serve '/js', :from => 'app/assets/javascripts'
+    js :application, [
+      '/js/*.js',
+      # You can also do this: 'js/*.js'
+    ]
+
+    serve '/css', :from => 'app/assets/stylesheets'
+    css :application, [
+      '/css/app.css'
+     ]
+
+    js_compression :jsmin
+    css_compression :sass
+  end
+
   get '/' do
     erb :index, :layout => :application
   end
