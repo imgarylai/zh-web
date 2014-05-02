@@ -12,13 +12,15 @@ gem 'sass'
 gem 'compass'
 gem 'bootstrap-sass'
 
-# gem 'zhconv', :github => 'zxlai/zhconv'
-gem 'zhconv', :path => '/Users/gary/Documents/works/zhconv'
+group :production do
+  gem 'zhconv', :github => 'zxlai/zhconv'
+end
 
-group :development do
+group :development, :test do
   gem 'guard'
   gem 'guard-livereload', require: false
   gem 'guard-shell'
   gem 'guard-rspec'
   gem 'rb-fsevent'
+  gem 'zhconv', :path => '/Users/gary/Documents/works/zhconv'
 end
