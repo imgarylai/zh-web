@@ -1,28 +1,48 @@
 # app.rb
 require 'sinatra'
 require 'zhconv'
+require 'bundler'
+ENV['RACK_ENV'] = 'development' unless ENV['RACK_ENV']
+Bundler.require(:default, ENV['RACK_ENV'])
 
-set :views, settings.root + '/app/views'
-set :erb, :format => :html5
+class App < Sinatra::Base
 
-get '/' do
-  erb :index, :layout => :application
-end
+  set :views, settings.root + '/app/views'
+  set :erb, :format => :html5
 
-get '/result' do
-  source = params[:source]
-  @ori = "#{source}"
-  # p "Before convert"
-  # p "Source: #{source}, id: #{source.object_id}"
-  # p "@ori: #{@ori}, id: #{@ori.object_id}"
-  @result = convert(source)
-  # p "After convert"
-  # p "Source: #{source}, id: #{source.object_id}"
-  # p "@ori: #{@ori}, id: #{@ori.object_id}"
-  erb :result
-end
+  configure do
+    env = ENV['RACK_ENV'] || 'development'
+    enable :logging
+    enable :raise_errors
 
+    set :root, File.dirname(__FILE__)
+  end
 
-def convert(source)
-  ZhConv.convert("zh-tw", source)
+  configure :development do |config|
+    require "sinatra/reloader"
+    register Sinatra::Reloader
+    enable :show_exceptions
+  end
+
+  get '/' do
+    erb :index, :layout => :application
+  end
+
+  get '/result' do
+    source = params[:source]
+    @ori = "#{source}"
+    # p "Before convert"
+    # p "Source: #{source}, id: #{source.object_id}"
+    # p "@ori: #{@ori}, id: #{@ori.object_id}"
+    @result = convert(source)
+    # p "After convert"
+    # p "Source: #{source}, id: #{source.object_id}"
+    # p "@ori: #{@ori}, id: #{@ori.object_id}"
+    erb :result
+  end
+
+  def convert(source)
+    ZhConv.convert("zh-tw", source)
+  end
+
 end
