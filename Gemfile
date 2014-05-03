@@ -10,6 +10,7 @@ gem 'pg'
 gem 'unicorn'
 gem 'foreman'
 gem 'rack-livereload'
+gem 'json'
 
 gem 'sprockets'
 gem 'sprockets-sass'
