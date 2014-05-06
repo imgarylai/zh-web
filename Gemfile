@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 if ENV['RACK_ENV'] == "development"
-  gem 'zhconv', :path => '/Users/gary/Documents/works/zhconv'
+  gem 'zh', :path => '/Users/gary/Documents/works/zh'
 else
-  gem 'zhconv', :github => 'zxlai/zhconv'
+  gem 'zh'
 end
