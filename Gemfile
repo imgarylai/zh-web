@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby "2.1.0"
+ruby '2.1.0'
 
 gem 'rake'
 gem 'sinatra'
-gem 'sinatra-contrib', :require => "sinatra/contrib/all"
+gem 'sinatra-contrib', :require => 'sinatra/contrib/all'
 gem 'sinatra-assetpack'
 gem 'pg'
 gem 'unicorn'
@@ -26,7 +26,7 @@ group :development, :test do
   gem 'rb-fsevent'
 end
 
-if ENV['RACK_ENV'] == "development"
+if ENV['RACK_ENV'] == 'development'
   gem 'zh', :path => '/Users/gary/Documents/works/zh'
 else
   gem 'zh'
