@@ -1,7 +1,7 @@
 # app.rb
 require 'sinatra'
 require 'sinatra/assetpack'
-require 'zhconv'
+require 'zh'
 require 'bundler'
 require 'json'
 
@@ -61,7 +61,7 @@ class App < Sinatra::Base
   end
 
   def convert(source)
-    ZhConv.convert("zh-tw", source)
+    Zh.to_tw source
   end
 
 end
